@@ -1,5 +1,19 @@
 const express = require('express');
+const axios = require('axios');
+
+const dotenv = require('dotenv');
+dotenv.config();
+
+axios.defaults.paramsSerializer = (params) => {
+    let result = '';
+    Object.keys(params).forEach(key => {
+        result += `${key}=${params[key]}&`;
+    });
+    return result.substring(0, result.length - 1);
+};
+
 const homeroute=require("./routes/home.js")
+const oigservice=require("./routes/oig.js")
 
 const app = express();
 app.use(express.json());
@@ -7,6 +21,8 @@ app.use(express.json());
 const PORT = process.env.PORT || 3001;
 
 app.use("/",homeroute);
+app.use("/",oigservice);
+
 
 app.listen(PORT, () => {
     console.log("Server Listening on PORT:", PORT);
