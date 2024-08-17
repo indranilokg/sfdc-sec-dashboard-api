@@ -31,5 +31,23 @@ router.get("/oigShowAllActiveCampaign", async (req,res,next)=>{
     }
 })
 
+router.get("/oigGetAllReviews", async (req,res,next)=>{
+    let config = {
+        headers: headers,
+        params: {
+            filter: "campaignId%20eq%20%22" + req.query.campaignId + "%22"
+          }
+    };
+    try {
+        let result = await await axios.get(process.env.OKTA_URL + properties.get("OIG_ALL_REVIEWS"), config);
+        var response = result.data;
+        delete response["_links"];
+        res.send(response);
+    } catch (err) {
+        console.log(err);
+        res.send(err.message);
+    }
+})
+
 // Importing the router
 module.exports=router
