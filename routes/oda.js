@@ -67,7 +67,7 @@ router.get("/odaGetMacVersions", async (req,res,next)=>{
     let config = {
         headers: headers,
         params: {
-            search: "profile.osVersion%20lt%20%2216.5.0%22%20and%20profile.platform%20eq%20%22MACOS%22"
+            search: "profile.osVersion%20lt%20%2214.5.0%22%20and%20profile.platform%20eq%20%22MACOS%22"
           }
     };
     try {
