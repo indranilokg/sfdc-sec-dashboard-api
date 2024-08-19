@@ -13,6 +13,24 @@ const headers = {
 
 
 // Get All active campaigns
+router.get("/oigGetAllCampaigns", async (req,res,next)=>{
+    let config = {
+        headers: headers
+    };
+    try {
+        let result = await axios.get(process.env.OKTA_URL + properties.get("OIG_ALL_CAMPAIGN"), config);
+        var response = result.data;
+        delete response["_links"];
+        res.send(response);
+    } catch (err) {
+        console.log(err);
+        res.send(err.message);
+    }
+})
+
+
+
+// Get All active campaigns
 router.get("/oigGetAllActiveCampaigns", async (req,res,next)=>{
     let config = {
         headers: headers,
