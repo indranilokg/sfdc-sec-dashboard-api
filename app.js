@@ -1,8 +1,10 @@
 const express = require('express');
 const axios = require('axios');
+const cors = require('cors');
 
 const dotenv = require('dotenv');
 dotenv.config();
+
 
 axios.defaults.paramsSerializer = (params) => {
     let result = '';
@@ -18,6 +20,7 @@ const odaservice=require("./routes/oda.js")
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 const PORT = process.env.PORT || 3001;
 
