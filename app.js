@@ -14,9 +14,10 @@ axios.defaults.paramsSerializer = (params) => {
     return result.substring(0, result.length - 1);
 };
 
-const homeroute=require("./routes/home.js")
-const oigservice=require("./routes/oig.js")
-const odaservice=require("./routes/oda.js")
+const homeroute=require("./routes/home.js");
+const oigservice=require("./routes/oig.js");
+const odaservice=require("./routes/oda.js");
+const opaservice=require("./routes/opa.js");
 
 const app = express();
 app.use(express.json());
@@ -27,6 +28,7 @@ const PORT = process.env.PORT || 3001;
 app.use("/",homeroute);
 app.use("/",oigservice);
 app.use("/",odaservice);
+app.use("/",opaservice);
 
 
 app.listen(PORT, () => {
