@@ -21,7 +21,7 @@ async function getServiceToken() {
     return result.data.bearer_token;
 }
 
-router.get("/opa", async (req,res,next)=>{
+router.get("/opaGetAllServers", async (req,res,next)=>{
     const serviceToken = await getServiceToken();
     const headers = {
         'Content-Type': 'application/json',
@@ -34,6 +34,53 @@ router.get("/opa", async (req,res,next)=>{
         let result = await axios.get(process.env.OPA_URL + properties.get("OPA_ALL_SERVERS"), config);
         var response = result.data;
         res.send(response);
+    } catch (err) {
+        console.log(err);
+        res.send(err.message);
+    }
+})
+
+router.get("/opaGetAllServerAccounts", async (req,res,next)=>{
+    const serviceToken = await getServiceToken();
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + serviceToken
+    };
+    let config = {
+        headers: headers
+    };
+    try {
+        let result = await axios.get(process.env.OPA_URL + properties.get("OPA_ALL_SERVER_ACCOUNTS"), config);
+        var response = result.data;
+        res.send(response);
+    } catch (err) {
+        console.log(err);
+        res.send(err.message);
+    }
+})
+
+
+router.get("/opaGetAllGatewaysStatus", async (req,res,next)=>{
+    const serviceToken = await getServiceToken();
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + serviceToken
+    };
+    let config = {
+        headers: headers
+    };
+    try {
+        let gateways = [];
+        let result = await axios.get(process.env.OPA_URL + properties.get("OPA_ALL_GATEWAYS"), config);
+        var response = result.data.list;
+        console.log(response);
+        for (i in response) {
+            let gateway = response[i];
+            let statusResult = await axios.get(process.env.OPA_URL + properties.get("OPA_ALL_GATEWAYS") + "/" + gateway.id + "/status", config);
+            let statusResponse = statusResult.data;
+            gateways.push({"name": gateway.name, "labels": gateway.labels, "status": statusResponse.status, "active_connections": statusResponse.active_connections});
+        }
+        res.send(gateways);
     } catch (err) {
         console.log(err);
         res.send(err.message);
