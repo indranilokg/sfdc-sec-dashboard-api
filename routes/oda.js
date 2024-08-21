@@ -7,7 +7,7 @@ const PropertiesReader = require('properties-reader');
 var properties = PropertiesReader('./config/query.properties');
 
 const headers = {
-      'Authorization': 'SSWS ' + process.env.API_KEY,
+      'Authorization': 'SSWS ' + process.env.ODA_API_KEY,
       'Content-Type': 'application/json'
   };
 
@@ -17,7 +17,7 @@ router.get("/odaGetAllDevices", async (req,res,next)=>{
         headers: headers
     };
     try {
-        let result = await axios.get(process.env.OKTA_URL + properties.get("ODA_ALL_DEVICES"), config);
+        let result = await axios.get(process.env.ODA_URL + properties.get("ODA_ALL_DEVICES"), config);
         var response = result.data;
         //delete response["_links"];
         res.send(response);
@@ -33,7 +33,7 @@ router.get("/odaGetUsersOfSharedMachine", async (req,res,next)=>{
         headers: headers
     };
     try {
-        let result = await axios.get(process.env.OKTA_URL + properties.get("ODA_ALL_DEVICES") + "/" + req.query.deviceId + "/users", config);
+        let result = await axios.get(process.env.ODA_URL + properties.get("ODA_ALL_DEVICES") + "/" + req.query.deviceId + "/users", config);
         var response = result.data;
         //delete response["_links"];
         res.send(response);
@@ -52,7 +52,7 @@ router.get("/odaGetDevicesWoEncr", async (req,res,next)=>{
           }
     };
     try {
-        let result = await axios.get(process.env.OKTA_URL + properties.get("ODA_ALL_DEVICES"), config);
+        let result = await axios.get(process.env.ODA_URL + properties.get("ODA_ALL_DEVICES"), config);
         var response = result.data;
         //delete response["_links"];
         res.send(response);
@@ -71,7 +71,7 @@ router.get("/odaGetMacVersions", async (req,res,next)=>{
           }
     };
     try {
-        let result = await axios.get(process.env.OKTA_URL + properties.get("ODA_ALL_DEVICES"), config);
+        let result = await axios.get(process.env.ODA_URL + properties.get("ODA_ALL_DEVICES"), config);
         var response = result.data;
         //delete response["_links"];
         res.send(response);
@@ -90,7 +90,7 @@ router.get("/odaGetFailedPwdSync", async (req,res,next)=>{
           }
     };
     try {
-        let result = await axios.get(process.env.OKTA_URL + properties.get("ODA_ALL_LOGS"), config);
+        let result = await axios.get(process.env.ODA_URL + properties.get("ODA_ALL_LOGS"), config);
         var response = result.data;
         //delete response["_links"];
         res.send(response);
@@ -110,7 +110,7 @@ router.get("/odaGetFailedDMFA", async (req,res,next)=>{
           }
     };
     try {
-        let result = await axios.get(process.env.OKTA_URL + properties.get("ODA_ALL_LOGS"), config);
+        let result = await axios.get(process.env.ODA_URL + properties.get("ODA_ALL_LOGS"), config);
         var response = result.data;
         //delete response["_links"];
         res.send(response);

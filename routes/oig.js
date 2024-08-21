@@ -7,7 +7,7 @@ const PropertiesReader = require('properties-reader');
 var properties = PropertiesReader('./config/query.properties');
 
 const headers = {
-      'Authorization': 'SSWS ' + process.env.API_KEY,
+      'Authorization': 'SSWS ' + process.env.OIG_API_KEY,
       'Content-Type': 'application/json'
   };
 
@@ -21,7 +21,7 @@ router.get("/oigGetAllCampaigns", async (req,res,next)=>{
           }
     };
     try {
-        let result = await axios.get(process.env.OKTA_URL + properties.get("OIG_ALL_CAMPAIGN"), config);
+        let result = await axios.get(process.env.OIG_URL + properties.get("OIG_ALL_CAMPAIGN"), config);
         var response = result.data;
         delete response["_links"];
         res.send(response);
@@ -38,11 +38,12 @@ router.get("/oigGetAllActiveCampaigns", async (req,res,next)=>{
     let config = {
         headers: headers,
         params: {
-            filter: "status%20eq%20%22ACTIVE%22"
+            filter: "status%20eq%20%22ACTIVE%22",
+            limit: 200
           }
     };
     try {
-        let result = await axios.get(process.env.OKTA_URL + properties.get("OIG_ALL_CAMPAIGN"), config);
+        let result = await axios.get(process.env.OIG_URL + properties.get("OIG_ALL_CAMPAIGN"), config);
         var response = result.data;
         delete response["_links"];
         res.send(response);
@@ -57,11 +58,12 @@ router.get("/oigGetAllCompleteCampaigns", async (req,res,next)=>{
     let config = {
         headers: headers,
         params: {
-            filter: "status%20eq%20%22COMPLETED%22"
+            filter: "status%20eq%20%22COMPLETED%22",
+            limit: 200
           }
     };
     try {
-        let result = await axios.get(process.env.OKTA_URL + properties.get("OIG_ALL_CAMPAIGN"), config);
+        let result = await axios.get(process.env.OIG_URL + properties.get("OIG_ALL_CAMPAIGN"), config);
         var response = result.data;
         delete response["_links"];
         res.send(response);
@@ -80,7 +82,7 @@ router.get("/oigGetAllReviews", async (req,res,next)=>{
           }
     };
     try {
-        let result = await axios.get(process.env.OKTA_URL + properties.get("OIG_ALL_REVIEWS"), config);
+        let result = await axios.get(process.env.OIG_URL + properties.get("OIG_ALL_REVIEWS"), config);
         var response = result.data;
         delete response["_links"];
         res.send(response);
@@ -99,7 +101,7 @@ router.get("/oigGetOutstandingReviews", async (req,res,next)=>{
           }
     };
     try {
-        let result = await axios.get(process.env.OKTA_URL + properties.get("OIG_ALL_REVIEWS"), config);
+        let result = await axios.get(process.env.OIG_URL + properties.get("OIG_ALL_REVIEWS"), config);
         var response = result.data;
         delete response["_links"];
         res.send(response);
