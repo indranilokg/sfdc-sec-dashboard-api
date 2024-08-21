@@ -15,7 +15,10 @@ const headers = {
 // Get All active campaigns
 router.get("/oigGetAllCampaigns", async (req,res,next)=>{
     let config = {
-        headers: headers
+        headers: headers,
+        params: {
+            limit: 200
+          }
     };
     try {
         let result = await axios.get(process.env.OKTA_URL + properties.get("OIG_ALL_CAMPAIGN"), config);

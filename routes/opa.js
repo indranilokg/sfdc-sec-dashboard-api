@@ -31,7 +31,9 @@ router.get("/opa", async (req,res,next)=>{
         headers: headers
     };
     try {
-        res.send(serviceToken);
+        let result = await axios.get(process.env.OPA_URL + properties.get("OPA_ALL_SERVERS"), config);
+        var response = result.data;
+        res.send(response);
     } catch (err) {
         console.log(err);
         res.send(err.message);
