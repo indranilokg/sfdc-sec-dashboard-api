@@ -18,6 +18,7 @@ const homeroute=require("./routes/home.js");
 const oigservice=require("./routes/oig.js");
 const odaservice=require("./routes/oda.js");
 const opaservice=require("./routes/opa.js");
+const itpservice=require("./routes/itp.js");
 
 const app = express();
 app.use(express.json());
@@ -29,6 +30,7 @@ app.use("/",homeroute);
 app.use("/",oigservice);
 app.use("/",odaservice);
 app.use("/",opaservice);
+app.use("/",itpservice);
 
 
 app.listen(PORT, () => {
